@@ -1,0 +1,17 @@
+<h1>All Campaigns</h1>
+
+{{#each campaigns}}
+  <div style="border: 1px solid #ccc; margin: 10px 0; padding: 10px;">
+    <p><strong>Title:</strong> {{title}}</p>
+    <p><strong>Status:</strong> Scheduled</p>
+    <p><strong>Scheduled:</strong> {{scheduleTime}}</p>
+    <p><strong>Message:</strong> {{message}}</p>
+    <p><strong>Recipients:</strong> {{#each recipients}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
+    <p><strong>Logs:</strong> No logs yet</p>
+  </div>
+{{else}}
+  <p>No campaigns found.</p>
+{{/each}}
+
+
+
