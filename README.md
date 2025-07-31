@@ -1,97 +1,112 @@
-# Campaign Scheduler Web App
 
-A Node.js + Express web application that allows users to create, schedule, and manage message campaigns (like announcements or reminders) with a clean UI and MongoDB as the backend database.
+# Email Campaign Scheduler
 
----
+A Node.js + Express web app to schedule email campaigns using SMTP, MongoDB, and Handlebars.
+
 
 ## Features
 
-- ✅ Create and schedule campaigns
-- ✅ Save recipient information
-- ✅ View all campaigns in one place
-- ✅ Logs to track sent messages (to be implemented)
-- ✅ Backend powered by Express.js and MongoDB
-- ✅ Clean and simple frontend UI using EJS
+- Create & schedule email campaigns
+- Prevent duplicate submissions
+- Send emails using SMTP server (e.g., Gmail)
+- Stores logs and campaign status in MongoDB
+- Clean UI built with Handlebars
 
----
 
 ## Tech Stack
 
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB + Mongoose
-- **Frontend**: HTML, CSS, EJS templating
-- **Scheduling**: Node Cron (optional, if you add scheduled job features)
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- Nodemailer (SMTP emails)
+- Handlebars (template engine)
+- dotenv
 
----
 
 ## Project Structure
 
-project-root/
-│
+├── app.js
+├── .env.example
 ├── models/
-│ └── Campaign.js # Mongoose schema for campaigns
-│
+│ └── Campaign.js
 ├── routes/
-│ └── campaignRoutes.js # API and web routes for campaign CRUD
-│
+│ └── campaignRoutes.js
 ├── views/
-│ ├── campaigns.handlebars # Home page to list all campaigns
-│ └── home.handlebars # Form to create a new campaign
-│
-├── public/ # Static files (CSS, JS)
-│
-├── server.js # Main Express server file
-├── package.json
+│ ├── layouts/
+│ ├── campaigns/
+│ └── ...
+├── public/
 └── README.md
 
 
----
+## .env Setup
 
-## Setup Instructions
+Create a `.env` file based on the example below:
 
-### 1. Clone the Repository
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/email-campaigns
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_email_password_or_app_password
+If using Gmail, make sure to enable 2FA and use App Passwords
 
+MongoDB Schema
+
+const CampaignSchema = new mongoose.Schema({
+  title: String,
+  message: String,
+  recipients: [String],
+  scheduleTime: {
+    type: Date,
+    required: true
+  },
+  status: {
+    type: String,
+    default: "pending"
+  },
+  logs: {
+    type: [String],
+    default: []
+  }
+}, { timestamps: true });
+
+Demo Video
+Watch the working demo here:
+Link1: https://drive.google.com/file/d/1kY438p_l5i4RecX5Ct2jYxw13hug_Asn/view?usp=sharing
+Link2: https://drive.google.com/file/d/1DkBZI4lKzgPDsvSQW3edc9Wmuy3kr0DM/view?usp=sharing 
+
+In this video you’ll see:
+
+Campaign creation form
+Validating and scheduling campaigns
+Avoiding duplicate submissions
+Viewing the list of sent/pending campaigns
+
+Installation & Running Locally
+Clone the repo
 git clone https://github.com/Ahmad9540/campaign-scheduler
-cd campaign-scheduler
 
-2. Install Dependencies
-
+Install dependencies
 npm install
 
-3. Set up MongoDB
-Create a .env file and add your MongoDB URI:
+Add your SMTP credentials in .env
 
-MONGODB_URI=mongodb://localhost:27017/campaignsDB
-
-4. Start the App
-
-node server.js
-
-Example Campaign Data:
-
-
-Title: Submit Assignment
-Message: All students must submit their assignments before 5 PM today.
-Schedule: 20-07-2031 11:56
-Status: Scheduled
-Recipients: (Coming soon…)
-
-Future Improvements:
-
-
- Add email/SMS integrations (e.g. Twilio, SendGrid)
- Add campaign edit/delete features
- Notification logs and history
- Authentication (Admin/User)
-
- Author:
-
-Developed by Ashfaq Ahmad
-GitHub: https://github.com/Ahmad9540
-
+Start the app
+npm run dev
+Visit http://localhost:3000
 
 License:
-This project is open-source and free to use under the MIT License.
+MIT – Free to use and modify
 
+Author:
+
+Ashfaq Ahmad
+LinkedIn: https://www.linkedin.com/in/ashfaq-ahmad-366345250/
+GitHub: 
+
+
+
+Let me know if you'd like to update any part (e.g., link to your real video or GitHub repo), and I’ll customize it for you!
 
 
